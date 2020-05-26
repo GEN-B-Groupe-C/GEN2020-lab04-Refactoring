@@ -17,4 +17,19 @@ public class Orders {
     public Order getOrder(int i) {
         return orders.get(i);
     }
+
+    public String getOrdersContent(){
+        StringBuffer result = new StringBuffer("{\"orders\": [");
+
+        for (int i = 0; i < orders.size(); i++) {
+
+            result.append(getOrder(i).getOrderContent());
+        }
+
+        if (orders.size() > 0) {
+            result.delete(result.length() - 2, result.length());
+        }
+
+        return result.append("]}").toString();
+    }
 }

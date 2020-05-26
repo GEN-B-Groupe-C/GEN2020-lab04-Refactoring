@@ -15,13 +15,13 @@ public class OrdersWriterTest {
 
     @Test
     public void NoOrder() {
-        assertEquals("{\"orders\": []}", new OrdersWriter(new Orders()).getContents());
+        assertEquals("{\"orders\": []}", new Orders().getOrdersContent());
     }
 
     @Test
     public void OneOrder() {
         String order111 = "{\"id\": 111, \"products\": []}";
-        assertEquals("{\"orders\": [" + order111 + "]}", new OrdersWriter(orders).getContents());
+        assertEquals("{\"orders\": [" + order111 + "]}", orders.getOrdersContent());
     }
 
     @Test
@@ -30,7 +30,7 @@ public class OrdersWriterTest {
 
         String order111Json = JsonOrder111WithProduct("");
         String order222Json = "{\"id\": 222, \"products\": []}";
-        assertEquals("{\"orders\": [" + order111Json + ", " + order222Json + "]}", new OrdersWriter(orders).getContents());
+        assertEquals("{\"orders\": [" + order111Json + ", " + order222Json + "]}", orders.getOrdersContent());
     }
 
     @Test
@@ -38,7 +38,7 @@ public class OrdersWriterTest {
         order111.AddProduct(new Product("Shirt", EnumColor.BLUE, EnumSize.M, 2.99, "TWD"));
 
         String order111Json = JsonOrder111WithProduct("{\"code\": \"Shirt\", \"color\": \"blue\", \"size\": \"M\", \"price\": 2.99, \"currency\": \"TWD\"}");
-        assertEquals("{\"orders\": [" + order111Json + "]}", new OrdersWriter(orders).getContents());
+        assertEquals("{\"orders\": [" + order111Json + "]}", orders.getOrdersContent());
     }
 
     @Test
@@ -46,7 +46,7 @@ public class OrdersWriterTest {
         order111.AddProduct(new Product("Pot", EnumColor.RED, EnumSize.INVALID_SIZE, 16.50, "SGD"));
 
         String order111Json = JsonOrder111WithProduct("{\"code\": \"Pot\", \"color\": \"red\", \"price\": 16.5, \"currency\": \"SGD\"}");
-        assertEquals("{\"orders\": [" + order111Json + "]}", new OrdersWriter(orders).getContents());
+        assertEquals("{\"orders\": [" + order111Json + "]}", orders.getOrdersContent());
     }
 
     private String JsonOrder111WithProduct(String productJson) {
