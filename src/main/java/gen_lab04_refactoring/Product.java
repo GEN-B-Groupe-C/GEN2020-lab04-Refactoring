@@ -1,14 +1,14 @@
 package gen_lab04_refactoring;
 
 public class Product {
-    public static final int SIZE_NOT_APPLICABLE = -1;
+    public static final Size SIZE_NOT_APPLICABLE = new Size();
     private String code;
-    private int size;
+    private Size size;
     private double price;
     private String currency;
     private Color color;
 
-    public Product(String code, Color color, int size, double price, String currency) {
+    public Product(String code, Color color, Size size, double price, String currency) {
         this.code = code;
         this.color = color;
         this.size = size;
@@ -20,9 +20,9 @@ public class Product {
         return code;
     }
 
-    public int getSize() {
-        return size;
-    }
+    public Size getSize(){ return size; }
+
+    public Color getColor(){ return color; }
 
     public double getPrice() {
         return price;
@@ -33,26 +33,24 @@ public class Product {
     }
 
     String getSizeFor() {
-        switch (getSize()) {
-            case 1:
-                return "XS";
-            case 2:
-                return "S";
-            case 3:
-                return "M";
-            case 4:
-                return "L";
-            case 5:
-                return "XL";
-            case 6:
-                return "XXL";
-            default:
-                return "Invalid Size";
-        }
+        return size.getSize();
     }
 
     String getColorFor() {
         return color.getColor();
+    }
 
+    String getProductContent() {
+        StringBuffer result = new StringBuffer();
+
+        result.append(String.format("{\"code\": \"%s\", \"color\": \"%s\", ", code, getColorFor()));
+
+        if (!getSizeFor().equals(SIZE_NOT_APPLICABLE.getSize())) {
+            result.append(String.format("\"size\": \"%s\", ", getSizeFor()));
+        }
+
+        result.append(String.format("\"price\": %s, \"currency\": \"%s\"}, ", Double.toString(price), currency));
+
+        return result.toString();
     }
 }
