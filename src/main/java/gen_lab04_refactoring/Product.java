@@ -3,12 +3,12 @@ package gen_lab04_refactoring;
 public class Product {
     public static final int SIZE_NOT_APPLICABLE = -1;
     private String code;
-    private int color;
     private int size;
     private double price;
     private String currency;
+    private Color color;
 
-    public Product(String code, int color, int size, double price, String currency) {
+    public Product(String code, Color color, int size, double price, String currency) {
         this.code = code;
         this.color = color;
         this.size = size;
@@ -18,10 +18,6 @@ public class Product {
 
     public String getCode() {
         return code;
-    }
-
-    public int getColor() {
-        return color;
     }
 
     public int getSize() {
@@ -56,15 +52,7 @@ public class Product {
     }
 
     String getColorFor() {
-        switch (getColor()) {
-            case 1:
-                return "blue";
-            case 2:
-                return "red";
-            case 3:
-                return "yellow";
-            default:
-                return "no color";
-        }
+        return color.getColor();
+
     }
 }
