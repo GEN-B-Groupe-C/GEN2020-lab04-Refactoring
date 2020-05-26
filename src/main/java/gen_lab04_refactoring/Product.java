@@ -1,14 +1,14 @@
 package gen_lab04_refactoring;
 
 public class Product {
-    public static final Size SIZE_NOT_APPLICABLE = new Size();
+    public static final EnumSize SIZE_NOT_APPLICABLE = EnumSize.INVALID_SIZE;
     private String code;
-    private Size size;
+    private EnumSize size;
     private double price;
     private String currency;
-    private Color color;
+    private EnumColor color;
 
-    public Product(String code, Color color, Size size, double price, String currency) {
+    public Product(String code, EnumColor color, EnumSize size, double price, String currency) {
         this.code = code;
         this.color = color;
         this.size = size;
@@ -20,9 +20,9 @@ public class Product {
         return code;
     }
 
-    public Size getSize(){ return size; }
+    public EnumSize getSize(){ return size; }
 
-    public Color getColor(){ return color; }
+    public EnumColor getColor(){ return color; }
 
     public double getPrice() {
         return price;
@@ -32,15 +32,15 @@ public class Product {
         return currency;
     }
 
-    String getSizeFor() {
+    public String getSizeFor() {
         return size.getSize();
     }
 
-    String getColorFor() {
+    public String getColorFor() {
         return color.getColor();
     }
 
-    String getProductContent() {
+    public String getProductContent() {
         StringBuffer result = new StringBuffer();
 
         result.append(String.format("{\"code\": \"%s\", \"color\": \"%s\", ", code, getColorFor()));
