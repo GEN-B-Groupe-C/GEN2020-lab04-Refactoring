@@ -8,60 +8,62 @@ public class OrdersWriter {
     }
 
     public String getContents() {
-        StringBuffer sb = new StringBuffer("{\"orders\": [");
+        StringBuffer result = new StringBuffer("{\"orders\": [");
 
         for (int i = 0; i < orders.getOrdersCount(); i++) {
 
-            sb.append("{");
-            sb.append("\"id\": ");
-            sb.append(getOrderForWriter(i).getOrderId());
-            sb.append(", ");
-            sb.append("\"products\": [");
+            result.append("{");
+            result.append("\"id\": ");
+            result.append(getOrderForWriter(i).getOrderId());
+            result.append(", ");
+            result.append("\"products\": [");
             for (int j = 0; j < getOrderForWriter(i).getProductsCount(); j++) {
 
-                getProductContents(sb, getOrderForWriter(i).getProduct(j));
+                result.append(getProductContents(getOrderForWriter(i).getProduct(j)));
             }
 
             if (getOrderForWriter(i).getProductsCount() > 0) {
-                sb.delete(sb.length() - 2, sb.length());
+                result.delete(result.length() - 2, result.length());
             }
 
-            sb.append("]");
-            sb.append("}, ");
+            result.append("]");
+            result.append("}, ");
         }
 
         if (orders.getOrdersCount() > 0) {
-            sb.delete(sb.length() - 2, sb.length());
+            result.delete(result.length() - 2, result.length());
         }
 
-        return sb.append("]}").toString();
+        return result.append("]}").toString();
     }
 
     private Order getOrderForWriter(int order) {
         return orders.getOrder(order);
     }
 
-    private void getProductContents(StringBuffer sb, Product product) {
-        sb.append("{");
-        sb.append("\"code\": \"");
-        sb.append(product.getCode());
-        sb.append("\", ");
-        sb.append("\"color\": \"");
-        sb.append(product.getColorFor());
-        sb.append("\", ");
+    private String getProductContents(Product product) {
+        StringBuffer result = new StringBuffer();
+        result.append("{");
+        result.append("\"code\": \"");
+        result.append(product.getCode());
+        result.append("\", ");
+        result.append("\"color\": \"");
+        result.append(product.getColorFor());
+        result.append("\", ");
 
         if (!product.getSizeFor().equals(Product.SIZE_NOT_APPLICABLE.getSize())) {
-            sb.append("\"size\": \"");
-            sb.append(product.getSizeFor());
-            sb.append("\", ");
+            result.append("\"size\": \"");
+            result.append(product.getSizeFor());
+            result.append("\", ");
         }
 
-        sb.append("\"price\": ");
-        sb.append(product.getPrice());
-        sb.append(", ");
-        sb.append("\"currency\": \"");
-        sb.append(product.getCurrency());
-        sb.append("\"}, ");
+        result.append("\"price\": ");
+        result.append(product.getPrice());
+        result.append(", ");
+        result.append("\"currency\": \"");
+        result.append(product.getCurrency());
+        result.append("\"}, ");
+        return result.toString();
     }
 
 }

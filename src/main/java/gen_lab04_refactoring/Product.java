@@ -38,6 +38,5 @@ public class Product {
 
     String getColorFor() {
         return color.getColor();
-
     }
 }
