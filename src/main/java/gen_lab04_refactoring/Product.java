@@ -39,4 +39,18 @@ public class Product {
     String getColorFor() {
         return color.getColor();
     }
+
+    String getProductContent() {
+        StringBuffer result = new StringBuffer();
+
+        result.append(String.format("{\"code\": \"%s\", \"color\": \"%s\", ", code, getColorFor()));
+
+        if (!getSizeFor().equals(SIZE_NOT_APPLICABLE.getSize())) {
+            result.append(String.format("\"size\": \"%s\", ", getSizeFor()));
+        }
+
+        result.append(String.format("\"price\": %s, \"currency\": \"%s\"}, ", Double.toString(price), currency));
+
+        return result.toString();
+    }
 }

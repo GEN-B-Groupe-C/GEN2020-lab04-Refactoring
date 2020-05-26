@@ -19,7 +19,7 @@ public class OrdersWriter {
             result.append("\"products\": [");
             for (int j = 0; j < getOrderForWriter(i).getProductsCount(); j++) {
 
-                result.append(getProductContents(getOrderForWriter(i).getProduct(j)));
+                result.append(getOrderForWriter(i).getProduct(j).getProductContent());
             }
 
             if (getOrderForWriter(i).getProductsCount() > 0) {
@@ -39,31 +39,6 @@ public class OrdersWriter {
 
     private Order getOrderForWriter(int order) {
         return orders.getOrder(order);
-    }
-
-    private String getProductContents(Product product) {
-        StringBuffer result = new StringBuffer();
-        result.append("{");
-        result.append("\"code\": \"");
-        result.append(product.getCode());
-        result.append("\", ");
-        result.append("\"color\": \"");
-        result.append(product.getColorFor());
-        result.append("\", ");
-
-        if (!product.getSizeFor().equals(Product.SIZE_NOT_APPLICABLE.getSize())) {
-            result.append("\"size\": \"");
-            result.append(product.getSizeFor());
-            result.append("\", ");
-        }
-
-        result.append("\"price\": ");
-        result.append(product.getPrice());
-        result.append(", ");
-        result.append("\"currency\": \"");
-        result.append(product.getCurrency());
-        result.append("\"}, ");
-        return result.toString();
     }
 
 }
